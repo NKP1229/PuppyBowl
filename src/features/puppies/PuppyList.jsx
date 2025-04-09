@@ -20,9 +20,9 @@ export default function PuppyList({ setSelectedPuppyId }) {
       setListOfPuppies(allPuppies);
     }
   }, [status]);
-  const Add = async (name, breed, status) => {
+  const Add = async (name, breed) => {
     try {
-      const response = await addPuppy(name, breed, status).unwrap();
+      const response = await addPuppy({name, breed}).unwrap();
       console.log(response);
     } catch (error) {
       console.error(error);

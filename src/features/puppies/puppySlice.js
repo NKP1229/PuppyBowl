@@ -37,7 +37,6 @@ const puppyApi = api.injectEndpoints({
         body: {
           name,
           breed,
-          status,
         }
       }),
       invalidatesTags: ["Puppy"],
