@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useGetPuppiesQuery, useGetPuppyQuery, useAddPuppyMutation, useDeletePuppyMutation } from "./puppySlice";
+import { useNavigate } from "react-router-dom";
 /**
  * @component
  * Shows a list of puppies in the roster.
@@ -5,6 +8,42 @@
  */
 export default function PuppyList({ setSelectedPuppyId }) {
   // TODO: Get data from getPuppies query
+  const { status, isLoading, data: allPuppies } = useGetPuppiesQuery();
+  const { getPuppy } = useGetPuppyQuery();
+  const { addPuppy } = useAddPuppyMutation();
+  const [ deleteAPuppy ] = useDeletePuppyMutation();
+  const [puppies, setListOfPuppies] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status === "fulfilled") {
+      setListOfPuppies(allPuppies);
+    }
+  }, [status]);
+  const Add = async (name, breed, status) => {
+    try {
+      const response = await addPuppy(name, breed, status).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  const Get = async (id) => {
+    try {
+      const response = await getPuppy(id).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const Delete = async (id) => {
+    try {
+      const response = await deleteAPuppy(id).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <article>

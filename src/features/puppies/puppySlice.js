@@ -1,4 +1,4 @@
-import api from "../../store/api";
+import { api } from "../../store/api";
 
 /*
 TODO: Define the following 4 endpoints:
