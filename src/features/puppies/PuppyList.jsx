@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetPuppiesQuery } from "./puppySlice";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 /**
  * @component
  * Shows a list of puppies in the roster.
@@ -13,7 +13,7 @@ export default function PuppyList({ setSelectedPuppyId }) {
   // const [ addPuppy ] = useAddPuppyMutation();
   // const [ deleteAPuppy ] = useDeletePuppyMutation();
   const [puppies, setListOfPuppies] = useState([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   
   useEffect(() => {
     if (status === "fulfilled") {
@@ -62,7 +62,7 @@ export default function PuppyList({ setSelectedPuppyId }) {
           <figure>
             <img src={p.imageUrl} alt={p.name} />
           </figure>
-          <button onClick={() => setSelectedPuppyId(p.id)}>
+          <button onClick={() => navigate(`/selected/${p.id}`)}>{/* <button onClick={() => navigate() setSelectedPuppyId(p.id)}> */}
             See details
           </button>
         </li>

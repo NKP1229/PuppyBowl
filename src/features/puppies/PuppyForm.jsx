@@ -15,9 +15,13 @@ export default function PuppyForm() {
     event.preventDefault();
     // Placeholder image w/ random photos of dogs
     const imageUrl = "https://loremflickr.com/200/300/dog";
+    const status = "bench";
+    const teamId = "456";
     try{
-      const response = await addPuppy(name, breed);
+      console.log("name:", name, ", breed: ",breed);
+      const response = await addPuppy(name, breed, status, imageUrl, teamId);
       console.log(response);
+
     }
     catch(error){
       console.error(error.message);

@@ -3,20 +3,23 @@
  * Shows comprehensive information about the selected puppy, if there is one.
  * Also provides a button for users to remove the selected puppy from the roster.
  */
+import { useParams } from "react-router-dom";
 import { useGetPuppyQuery } from "./puppySlice";
 import { useDeletePuppyMutation } from "./puppySlice";
-export default function PuppyDetails({ selectedPuppyId, setSelectedPuppyId }) {
+export default function PuppyDetails() {
   // TODO: Grab data from the `getPuppy` query
-  const { isLoading, data: puppy } = useGetPuppyQuery(selectedPuppyId);
+  const {id} = useParams();
+  const { isLoading, data: puppy } = useGetPuppyQuery(id);
+  const deletePuppy = useDeletePuppyMutation();
   // TODO: Use the `deletePuppy` mutation to remove a puppy when the button is clicked
-  function removePuppy(puppyId) {
+  async function removePuppy(puppyId) {
     setSelectedPuppyId(puppyId);
-
+    const response = await deletePuppy();
   }
   // There are 3 possibilities:
   let $details;
   // 1. A puppy has not yet been selected.
-  if (!selectedPuppyId) {
+  if (!id) {
     $details = <p>Please select a puppy to see more details.</p>;
   }
   //  2. A puppy has been selected, but results have not yet returned from the API.

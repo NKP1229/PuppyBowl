@@ -32,12 +32,15 @@ const puppyApi = api.injectEndpoints({
       providesTags: ["Puppy"],
     }),
     AddPuppy: build.mutation({
-      query: ({name, breed}) => ({
+      query: ({name, breed, status, imageUrl, teamId}) => ({
         url: "/",
         method: "POST",
         body: {
           name,
           breed,
+          status,
+          imageUrl,
+          teamId,
         }
       }),
       invalidatesTags: ["Puppy"],
