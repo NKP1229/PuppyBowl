@@ -18,7 +18,7 @@ export default function PuppyList({ setSelectedPuppyId }) {
   useEffect(() => {
     if (status === "fulfilled") {
       setListOfPuppies(allPuppies);
-      console.log(allPuppies);
+      //console.log(allPuppies);
     }
 
   }, [status]);
