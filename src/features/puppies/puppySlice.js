@@ -1,5 +1,5 @@
-import { api } from "../../store/api";
-
+import api from "../../store/api";
+import { createSlice } from "@reduxjs/toolkit";
 /*
 TODO: Define the following 4 endpoints:
   1. getPuppies (query)
@@ -18,21 +18,22 @@ const puppyApi = api.injectEndpoints({
   endpoints: (build) => ({
     GetPuppies: build.query({
       query: () => ({
-        url: "/players",
+        url: "/",
         method: "GET",
       }),
       providesTags: ["Puppy"],
+      transformResponse: (pen) => pen.data.players,
     }),
     GetPuppy: build.query({
-      query: ({puppyId}) => ({
-        url: `/players/${puppyId}`,
+      query: (puppyId) => ({
+        url: `/${puppyId}`,
         method: "GET",
       }),
       providesTags: ["Puppy"],
     }),
     AddPuppy: build.mutation({
-      query: () => ({
-        url: "/players",
+      query: ({name, breed}) => ({
+        url: "/",
         method: "POST",
         body: {
           name,
@@ -43,13 +44,28 @@ const puppyApi = api.injectEndpoints({
     }),
     DeletePuppy: build.mutation({
       query: ({puppyId}) => ({
-        url: `/players/${puppyId}`,
+        url: `/${puppyId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Puppy"],
     }),
   }),
 });
+
+const storeToken = (state, { payload }) => {
+  localStorage.setItem("token", payload.token);
+};
+const AddPuppiesSlice = createSlice({
+  name: "AddPuppies",
+  initialState: {},
+  reducers: {},
+  extraReducers: (builder) => {
+    if (api.endpoints?.AddPuppies?.matchFulfilled) {
+      builder.addMatcher(api.endpoints.AddPuppies.matchFulfilled, storeToken);
+    }
+  },
+});
+export default AddPuppiesSlice.reducer;
 
 export const {
   useGetPuppiesQuery,

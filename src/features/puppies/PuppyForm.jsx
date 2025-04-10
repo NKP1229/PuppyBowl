@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useAddPuppyMutation } from "./puppySlice";
 /**
  * @component
  * Users can add puppies to the roster by submitting this form.
@@ -7,14 +7,21 @@ import { useState } from "react";
 export default function PuppyForm() {
   const [name, setName] = useState("");
   const [breed, setBreed] = useState("");
-
+  const [addPuppy] = useAddPuppyMutation();
+  const { isLoading, error } = useAddPuppyMutation();
   // TODO: Use the `addPuppy` mutation to add a puppy when the form is submitted
 
-  function postPuppy(event) {
+  async function postPuppy(event) {
     event.preventDefault();
-
     // Placeholder image w/ random photos of dogs
     const imageUrl = "https://loremflickr.com/200/300/dog";
+    try{
+      const response = await addPuppy(name, breed);
+      console.log(response);
+    }
+    catch(error){
+      console.error(error.message);
+    }
   }
 
   return (
@@ -37,7 +44,7 @@ export default function PuppyForm() {
             onChange={(e) => setBreed(e.target.value)}
           />
         </label>
-        <button>Add to Roster</button>
+        <button type="submit">Add to Roster</button>
         {isLoading && <output>Uploading puppy information...</output>}
         {error && <output>{error.message}</output>}
       </form>
