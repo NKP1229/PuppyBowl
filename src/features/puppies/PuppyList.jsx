@@ -9,30 +9,23 @@ import { useNavigate } from "react-router-dom";
 export default function PuppyList({ setSelectedPuppyId }) {
   // TODO: Get data from getPuppies query
   const { status, isLoading, data: allPuppies } = useGetPuppiesQuery();
-  // const { getPuppy } = useGetPuppyQuery();
   const [puppies, setListOfPuppies] = useState([]);
   const navigate = useNavigate();
+  
+  const [searched, setSearched] = useState('');
+  const handleChange = (e) => {
+    setSearched(e.target.value);
+  };
+  const searchedDogs = puppies.filter(dog =>
+    dog.name.toLowerCase().startsWith(searched.toLowerCase())
+  );
   
   useEffect(() => {
     if (status === "fulfilled") {
       setListOfPuppies(allPuppies);
-      //console.log(allPuppies);
     }
 
   }, [status]);
-  function search(){
-    {puppies.map((p) => (
-      console.log([p.name])
-    ))}
-  }
-  // const Get = async (id) => {
-  //   try {
-  //     const response = await getPuppy(id).unwrap();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   
   if(isLoading){
     return (<h1>Loading</h1>);
@@ -43,7 +36,13 @@ export default function PuppyList({ setSelectedPuppyId }) {
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="search-container">
-              <input type="text" className="form-control search-input" placeholder="Search..."/>
+              <input 
+                type="text" 
+                className="form-control search-input" 
+                placeholder="Search Player Name..."
+                value={searched}
+                onChange={handleChange}
+              />
               <i className="fas fa-search search-icon"></i>
             </div>
           </div>
@@ -53,7 +52,7 @@ export default function PuppyList({ setSelectedPuppyId }) {
         <h2>Roster</h2>
         <ul className="puppies">
           {isLoading && <li>Loading puppies...</li>}
-          {allPuppies.map((p) => (
+          {searchedDogs.map((p) => (
             <li key={p.id}>
             <h3>
               {p.name} #{p.id}
