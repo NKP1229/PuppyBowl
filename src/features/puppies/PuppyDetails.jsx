@@ -12,9 +12,10 @@ export default function PuppyDetails() {
   const { isLoading, data: puppy } = useGetPuppyQuery(id);
   const deletePuppy = useDeletePuppyMutation();
   // TODO: Use the `deletePuppy` mutation to remove a puppy when the button is clicked
-  async function removePuppy(puppyId) {
-    setSelectedPuppyId(puppyId);
-    const response = await deletePuppy();
+  async function removePuppy(Id) {
+    setSelectedPuppyId(Id);
+    const response = await deletePuppy(id);
+    console.log(response);
   }
   // There are 3 possibilities:
   let $details;

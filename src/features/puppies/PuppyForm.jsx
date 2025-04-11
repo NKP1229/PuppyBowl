@@ -19,7 +19,7 @@ export default function PuppyForm() {
     const teamId = "456";
     try{
       console.log("name:", name, ", breed: ",breed);
-      const response = await addPuppy(name, breed, status, imageUrl, teamId);
+      const response = await addPuppy({name, breed, status, imageUrl, teamId});
       console.log(response);
 
     }
