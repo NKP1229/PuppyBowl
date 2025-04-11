@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAddPuppyMutation } from "./puppySlice";
 /**
  * @component
  * Users can add puppies to the roster by submitting this form.
  */
 export default function PuppyForm() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [breed, setBreed] = useState("");
   const [addPuppy] = useAddPuppyMutation();
@@ -21,7 +23,7 @@ export default function PuppyForm() {
       //console.log("name:", name, ", breed: ",breed);
       const response = await addPuppy({name, breed, status, imageUrl, teamId});
       console.log(response);
-
+      navigate('/');
     }
     catch(error){
       console.error(error.message);
