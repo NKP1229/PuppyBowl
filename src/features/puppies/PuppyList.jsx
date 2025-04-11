@@ -10,8 +10,6 @@ export default function PuppyList({ setSelectedPuppyId }) {
   // TODO: Get data from getPuppies query
   const { status, isLoading, data: allPuppies } = useGetPuppiesQuery();
   // const { getPuppy } = useGetPuppyQuery();
-  // const [ addPuppy ] = useAddPuppyMutation();
-  // const [ deleteAPuppy ] = useDeletePuppyMutation();
   const [puppies, setListOfPuppies] = useState([]);
   const navigate = useNavigate();
   
@@ -22,14 +20,7 @@ export default function PuppyList({ setSelectedPuppyId }) {
     }
 
   }, [status]);
-  // const Add = async (name, breed) => {
-  //   try {
-  //     const response = await addPuppy({name, breed}).unwrap();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+
   // const Get = async (id) => {
   //   try {
   //     const response = await getPuppy(id).unwrap();
@@ -38,14 +29,7 @@ export default function PuppyList({ setSelectedPuppyId }) {
   //     console.error(error);
   //   }
   // };
-  // const Delete = async (id) => {
-  //   try {
-  //     const response = await deleteAPuppy(id).unwrap();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  
   if(isLoading){
     return (<h1>Loading</h1>);
   }
