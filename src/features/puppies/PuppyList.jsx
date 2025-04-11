@@ -20,7 +20,11 @@ export default function PuppyList({ setSelectedPuppyId }) {
     }
 
   }, [status]);
-
+  function search(){
+    {puppies.map((p) => (
+      console.log([p.name])
+    ))}
+  }
   // const Get = async (id) => {
   //   try {
   //     const response = await getPuppy(id).unwrap();
@@ -34,24 +38,36 @@ export default function PuppyList({ setSelectedPuppyId }) {
     return (<h1>Loading</h1>);
   }
   return (
-    <article>
-      <h2>Roster</h2>
-      <ul className="puppies">
-        {isLoading && <li>Loading puppies...</li>}
-        {allPuppies.map((p) => (
-          <li key={p.id}>
-          <h3>
-            {p.name} #{p.id}
-          </h3>
-          <figure>
-            <img src={p.imageUrl} alt={p.name} />
-          </figure>
-          <button onClick={() => navigate(`/selected/${p.id}`)}>{/* <button onClick={() => navigate() setSelectedPuppyId(p.id)}> */}
-            See details
-          </button>
-        </li>
-        ))}
-      </ul>
-    </article>
+    <>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="search-container">
+              <input type="text" className="form-control search-input" placeholder="Search..."/>
+              <i className="fas fa-search search-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <article>
+        <h2>Roster</h2>
+        <ul className="puppies">
+          {isLoading && <li>Loading puppies...</li>}
+          {allPuppies.map((p) => (
+            <li key={p.id}>
+            <h3>
+              {p.name} #{p.id}
+            </h3>
+            <figure>
+              <img src={p.imageUrl} alt={p.name} />
+            </figure>
+            <button onClick={() => navigate(`/selected/${p.id}`)}>{/* <button onClick={() => navigate() setSelectedPuppyId(p.id)}> */}
+              See details
+            </button>
+          </li>
+          ))}
+        </ul>
+      </article>
+    </>
   );
 }
