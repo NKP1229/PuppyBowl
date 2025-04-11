@@ -46,7 +46,7 @@ const puppyApi = api.injectEndpoints({
       invalidatesTags: ["Puppy"],
     }),
     DeletePuppy: build.mutation({
-      query: ({puppyId}) => ({
+      query: (puppyId) => ({
         url: `/${puppyId}`,
         method: "DELETE",
       }),

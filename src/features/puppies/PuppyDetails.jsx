@@ -4,18 +4,23 @@
  * Also provides a button for users to remove the selected puppy from the roster.
  */
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetPuppyQuery } from "./puppySlice";
 import { useDeletePuppyMutation } from "./puppySlice";
 export default function PuppyDetails() {
   // TODO: Grab data from the `getPuppy` query
   const {id} = useParams();
   const { isLoading, data: puppy } = useGetPuppyQuery(id);
-  const deletePuppy = useDeletePuppyMutation();
+  const navigate = useNavigate();
+  const [deletePuppy] = useDeletePuppyMutation();
   // TODO: Use the `deletePuppy` mutation to remove a puppy when the button is clicked
-  async function removePuppy(id) {
+  async function removePuppy() {
     // setSelectedPuppyId(Id);
-    const response = await deletePuppy(id);
+    //console.log("id: ",id);
+    const response = await deletePuppy(id).unwrap();
     console.log(response);
+    navigate('/');
+
   }
   // There are 3 possibilities:
   let $details;
@@ -36,7 +41,7 @@ export default function PuppyDetails() {
         </h3>
         <p>{puppy.data.player.breed}</p>
         <p>Team {puppy.data.player.team?.name ?? "Unassigned"}</p>
-        <button onClick={() => removePuppy(puppy.data.player.id)}>
+        <button onClick={() => removePuppy()}>
           Remove from roster
         </button>
         <figure>

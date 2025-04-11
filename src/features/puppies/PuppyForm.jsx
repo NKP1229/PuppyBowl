@@ -18,7 +18,7 @@ export default function PuppyForm() {
     const status = "bench";
     const teamId = "456";
     try{
-      console.log("name:", name, ", breed: ",breed);
+      //console.log("name:", name, ", breed: ",breed);
       const response = await addPuppy({name, breed, status, imageUrl, teamId});
       console.log(response);
 
